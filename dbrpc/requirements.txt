@@ -1,0 +1,3 @@
+arrpc==0.3.0
+pyfiglet==0.8.post1
+redis==3.3.11

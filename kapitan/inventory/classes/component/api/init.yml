@@ -1,0 +1,30 @@
+parameters:
+  api:
+    image: gcr.io/ramaro-net/aaaas-api:0.1
+
+    bind_host: 0.0.0.0
+    bind_port: 8080
+    dbrpc_host: dbrpc
+    dbrpc_port: 8079
+    dbrpc_secret: I_am_an_unsafe_secret
+
+    args:
+      - --bind-host
+      - ${api:bind_host}
+      - --bind-port
+      - ${api:bind_port}
+      - --dbrpc-host
+      - ${api:dbrpc_host}
+      - --dbrpc-port
+      - ${api:dbrpc_port}
+      - --dbrpc-secret
+      - ${api:dbrpc_secret}
+      - --style-title
+
+  kapitan:
+    compile:
+      - output_path: manifests
+        input_type: jsonnet
+        input_paths:
+          - components/api/main.jsonnet
+        output_type: yaml

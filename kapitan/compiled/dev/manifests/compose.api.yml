@@ -1,0 +1,18 @@
+services:
+  api:
+    command:
+      - --bind-host
+      - 0.0.0.0
+      - --bind-port
+      - '8080'
+      - --dbrpc-host
+      - dbrpc
+      - --dbrpc-port
+      - '8079'
+      - --dbrpc-secret
+      - I_am_an_unsafe_secret
+      - --style-title
+    image: gcr.io/ramaro-net/aaaas-api:0.1
+    ports:
+      - 8080:8080
+version: '3'

@@ -1,0 +1,29 @@
+parameters:
+  dbrpc:
+    image: gcr.io/ramaro-net/aaaas-dbrpc:0.1
+
+    bind_host: 0.0.0.0
+    bind_port: 8079
+    db_host: redis
+    db_port: 6379
+    secret: I_am_an_unsafe_secret
+
+    args:
+      - --bind-host
+      - ${dbrpc:bind_host}
+      - --bind-port
+      - ${dbrpc:bind_port}
+      - --db-host
+      - ${dbrpc:db_host}
+      - --db-port
+      - ${dbrpc:db_port}
+      - --secret
+      - ${dbrpc:secret}
+
+  kapitan:
+    compile:
+      - output_path: manifests
+        input_type: jsonnet
+        input_paths:
+          - components/dbrpc/main.jsonnet
+        output_type: yaml

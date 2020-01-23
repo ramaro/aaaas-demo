@@ -1,0 +1,22 @@
+parameters:
+  redis:
+    image: redis:5.0.7
+    bind_port: 6379
+
+    args:
+      - --port
+      - ${redis:bind_port}
+
+    _compile:
+      kubernetes:
+        helm: stuff_here
+      compose:
+        output_path: manifests
+        input_type: jsonnet
+        input_paths:
+          - components/redis/main.jsonnet
+        output_type: yaml
+
+  kapitan:
+    compile:
+      - ${redis:_compile:${platform}}

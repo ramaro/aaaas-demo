@@ -1,0 +1,8 @@
+classes:
+  - init
+  - component.redis
+  - component.dbrpc
+  - component.api
+
+parameters:
+  target: dev

@@ -1,0 +1,6 @@
+classes:
+  - platform.compose
+parameters:
+  kapitan:
+    vars:
+      target: ${target}
