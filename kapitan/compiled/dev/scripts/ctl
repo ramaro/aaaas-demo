@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-{% set i = inventory.parameters %}
-{% set platform = i.platform %}
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 
-{% if platform == "compose" %}
 COMPOSE_ARGS=""
 for file in ${DIR}/../manifests/compose*.yml
 do
     COMPOSE_ARGS="${COMPOSE_ARGS} -f ${file}"
 done
 
-docker-compose ${COMPOSE_ARGS} up -d
-{% endif %}
+docker-compose ${COMPOSE_ARGS} $@

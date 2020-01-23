@@ -7,3 +7,4 @@ parameters:
           - components/scripts/deploy
           - components/scripts/ps
           - components/scripts/stop
+          - components/scripts/ctl

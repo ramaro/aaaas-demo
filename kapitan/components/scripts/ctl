@@ -13,5 +13,5 @@ do
     COMPOSE_ARGS="${COMPOSE_ARGS} -f ${file}"
 done
 
-docker-compose ${COMPOSE_ARGS} up -d
+docker-compose ${COMPOSE_ARGS} $@
 {% endif %}

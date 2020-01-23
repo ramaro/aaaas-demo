@@ -15,4 +15,3 @@ done
 
 docker-compose ${COMPOSE_ARGS} ps
 {% endif %}
-
