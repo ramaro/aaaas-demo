@@ -9,14 +9,25 @@ parameters:
 
     _compile:
       kubernetes:
-        helm: stuff_here
+        - output_path: manifests_helm
+          input_type: helm
+          input_paths:
+            - components/redis/chart
       compose:
-        output_path: manifests
-        input_type: jsonnet
-        input_paths:
-          - components/redis/main.jsonnet
-        output_type: yaml
+        - output_path: manifests
+          input_type: jsonnet
+          input_paths:
+            - components/redis/main.jsonnet
+          output_type: yaml
+    _dependencies:
+      kubernetes:
+        - type: git
+          output_path: components/redis/chart
+          source: git@github.com:helm/charts.git
+          subdir: stable/redis
+          ref: 69ef199
+      compose: []
 
   kapitan:
-    compile:
-      - ${redis:_compile:${platform}}
+    compile: ${redis:_compile:${platform}}
+    dependencies: ${redis:_dependencies:${platform}}
