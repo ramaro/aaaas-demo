@@ -4,7 +4,7 @@ local params = inv.parameters;
 
 local main_compose = if params.platform == "compose"
 then {
-  "compose.redis": {
+  "redis": {
     version: "3",
     services: {
       redis: {

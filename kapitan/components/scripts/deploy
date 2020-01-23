@@ -8,7 +8,7 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 
 {% if platform == "compose" %}
 COMPOSE_ARGS=""
-for file in ${DIR}/../manifests/compose*.yml
+for file in ${DIR}/../manifests/*.yml
 do
     COMPOSE_ARGS="${COMPOSE_ARGS} -f ${file}"
 done

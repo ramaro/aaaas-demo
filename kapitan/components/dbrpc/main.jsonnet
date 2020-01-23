@@ -4,7 +4,7 @@ local params = inv.parameters;
 
 local main_compose = if params.platform == "compose"
 then {
-  "compose.dbrpc": {
+  "dbrpc": {
     version: "3",
     services: {
       dbrpc: {

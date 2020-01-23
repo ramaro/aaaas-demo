@@ -4,7 +4,7 @@ local params = inv.parameters;
 
 local main_compose = if params.platform == "compose"
 then {
-  "compose.api": {
+  "api": {
     version: "3",
     services: {
       api: {
