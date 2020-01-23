@@ -3,6 +3,7 @@ classes:
   - component.redis
   - component.dbrpc
   - component.api
+  - component.scripts
 
 parameters:
   target: dev

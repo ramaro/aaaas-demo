@@ -1,0 +1,9 @@
+parameters:
+  kapitan:
+    compile:
+      - output_path: scripts
+        input_type: jinja2
+        input_paths:
+          - components/scripts/deploy
+          - components/scripts/ps
+          - components/scripts/stop
