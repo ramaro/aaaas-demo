@@ -11,5 +11,3 @@ do
 done
 
 docker-compose ${COMPOSE_ARGS} ps
-
-

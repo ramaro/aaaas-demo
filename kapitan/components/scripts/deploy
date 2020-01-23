@@ -12,8 +12,7 @@ for file in ${DIR}/../manifests/compose*.yml
 do
     COMPOSE_ARGS="${COMPOSE_ARGS} -f ${file}"
 done
-{% endif %}
 
 docker-compose ${COMPOSE_ARGS} up -d
-
+{% endif %}
 
