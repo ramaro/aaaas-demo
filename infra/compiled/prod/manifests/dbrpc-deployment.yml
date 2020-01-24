@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbrpc
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbrpc
+  template:
+    metadata:
+      labels:
+        app: dbrpc
+    spec:
+      containers:
+        - args:
+            - --bind-host
+            - 0.0.0.0
+            - --bind-port
+            - '8079'
+            - --db-host
+            - redis
+            - --db-port
+            - '6379'
+            - --secret
+            - I_am_an_unsafe_secret
+          image: gcr.io/ramaro-dev/aaaas-dbrpc:0.1
+          name: dbrpc
+          ports:
+            - containerPort: 8079

@@ -17,9 +17,4 @@ then {
 }
 else {};
 
-local main_kubernetes = if params.platform == "kubernetes"
-then {
-}
-else {};
-
-main_compose + main_kubernetes
+main_compose

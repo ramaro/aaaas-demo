@@ -61,7 +61,7 @@ local main_kubernetes = if params.platform == "kubernetes" then {
               },
           ],
           selector: { app: "api" },
-          type: "NodePort",
+          type: "NodePort", // TODO hardcode nodeport and open firewall!!!
       },
 
       metadata: {

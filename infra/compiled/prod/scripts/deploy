@@ -13,5 +13,5 @@ done
 
 for file in $(find ${DIR}/../manifests_helm/ -name '*.y*ml')
 do
-    echo kubectl -n prod apply HELM -f ${file}
+    kubectl -n prod apply -f ${file}
 done
