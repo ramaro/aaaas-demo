@@ -16,13 +16,25 @@ parameters:
           helm_params:
             release_name: ${target}
             namespace: ${target}
-
+          helm_values:
+            redisPort: ${redis:bind_port}
+            usePassword: false
+            cluster:
+              enabled: false
+            master:
+              persistence:
+                enabled: false
+              livenessPRobe:
+                enabled: false
+              readinessProbe:
+                enbabled: false
       compose:
         - output_path: manifests
           input_type: jsonnet
           input_paths:
             - components/redis/main.jsonnet
           output_type: yaml
+
     _dependencies:
       kubernetes:
         - type: git

@@ -1,10 +1,9 @@
 apiVersion: v1
 data:
   ping_liveness_local.sh: "response=$(\n  timeout -s 9 $1 \\\n  redis-cli \\\n   \
-    \ -a $REDIS_PASSWORD --no-auth-warning \\\n    -h localhost \\\n    -p $REDIS_PORT\
-    \ \\\n    ping\n)\nif [ \"$response\" != \"PONG\" ] && [ \"$response\" != \"LOADING\
-    \ Redis is loading the dataset in memory\" ]; then\n  echo \"$response\"\n  exit\
-    \ 1\nfi"
+    \ -h localhost \\\n    -p $REDIS_PORT \\\n    ping\n)\nif [ \"$response\" != \"\
+    PONG\" ] && [ \"$response\" != \"LOADING Redis is loading the dataset in memory\"\
+    \ ]; then\n  echo \"$response\"\n  exit 1\nfi"
   ping_liveness_local_and_master.sh: 'script_dir="$(dirname "$0")"
 
     exit_status=0
@@ -15,14 +14,12 @@ data:
 
     exit $exit_status'
   ping_liveness_master.sh: "response=$(\n  timeout -s 9 $1 \\\n  redis-cli \\\n  \
-    \  -a $REDIS_MASTER_PASSWORD --no-auth-warning \\\n    -h $REDIS_MASTER_HOST \\\
-    \n    -p $REDIS_MASTER_PORT_NUMBER \\\n    ping\n)\nif [ \"$response\" != \"PONG\"\
-    \ ] && [ \"$response\" != \"LOADING Redis is loading the dataset in memory\" ];\
-    \ then\n  echo \"$response\"\n  exit 1\nfi"
+    \  -h $REDIS_MASTER_HOST \\\n    -p $REDIS_MASTER_PORT_NUMBER \\\n    ping\n)\n\
+    if [ \"$response\" != \"PONG\" ] && [ \"$response\" != \"LOADING Redis is loading\
+    \ the dataset in memory\" ]; then\n  echo \"$response\"\n  exit 1\nfi"
   ping_readiness_local.sh: "response=$(\n  timeout -s 9 $1 \\\n  redis-cli \\\n  \
-    \  -a $REDIS_PASSWORD --no-auth-warning \\\n    -h localhost \\\n    -p $REDIS_PORT\
-    \ \\\n    ping\n)\nif [ \"$response\" != \"PONG\" ]; then\n  echo \"$response\"\
-    \n  exit 1\nfi"
+    \  -h localhost \\\n    -p $REDIS_PORT \\\n    ping\n)\nif [ \"$response\" !=\
+    \ \"PONG\" ]; then\n  echo \"$response\"\n  exit 1\nfi"
   ping_readiness_local_and_master.sh: 'script_dir="$(dirname "$0")"
 
     exit_status=0
@@ -33,9 +30,8 @@ data:
 
     exit $exit_status'
   ping_readiness_master.sh: "response=$(\n  timeout -s 9 $1 \\\n  redis-cli \\\n \
-    \   -a $REDIS_MASTER_PASSWORD --no-auth-warning \\\n    -h $REDIS_MASTER_HOST\
-    \ \\\n    -p $REDIS_MASTER_PORT_NUMBER \\\n    ping\n)\nif [ \"$response\" !=\
-    \ \"PONG\" ]; then\n  echo \"$response\"\n  exit 1\nfi"
+    \   -h $REDIS_MASTER_HOST \\\n    -p $REDIS_MASTER_PORT_NUMBER \\\n    ping\n\
+    )\nif [ \"$response\" != \"PONG\" ]; then\n  echo \"$response\"\n  exit 1\nfi"
 kind: ConfigMap
 metadata:
   labels:
