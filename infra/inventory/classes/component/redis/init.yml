@@ -13,6 +13,10 @@ parameters:
           input_type: helm
           input_paths:
             - components/redis/chart
+          helm_params:
+            release_name: ${target}
+            namespace: ${target}
+
       compose:
         - output_path: manifests
           input_type: jsonnet
