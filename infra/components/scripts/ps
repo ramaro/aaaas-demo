@@ -3,7 +3,6 @@ set -e
 
 {% set i = inventory.parameters %}
 {% set platform = i.platform %}
-
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 {% if platform == "compose" %}
@@ -14,4 +13,10 @@ do
 done
 
 docker-compose ${COMPOSE_ARGS} ps
+{% endif %}
+
+{% if platform == "kubernetes" %}
+gcloud container clusters get-credentials {{i.kubernetes.cluster}} --zone {{i.kubernetes.zone}} --project {{i.kubernetes.project}} &> /dev/null
+
+kubectl -n {{i.target}} get pods
 {% endif %}

@@ -15,3 +15,9 @@ done
 
 docker-compose ${COMPOSE_ARGS} $@
 {% endif %}
+
+{% if platform == "kubernetes" %}
+gcloud container clusters get-credentials {{i.kubernetes.cluster}} --zone {{i.kubernetes.zone}} --project {{i.kubernetes.project}} &> /dev/null
+
+kubectl -n {{i.target}} $@
+{% endif %}

@@ -3,7 +3,6 @@ set -e
 
 {% set i = inventory.parameters %}
 {% set platform = i.platform %}
-
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 {% if platform == "compose" %}
@@ -14,4 +13,18 @@ do
 done
 
 docker-compose ${COMPOSE_ARGS} up -d
+{% endif %}
+
+{% if platform == "kubernetes" %}
+gcloud container clusters get-credentials {{i.kubernetes.cluster}} --zone {{i.kubernetes.zone}} --project {{i.kubernetes.project}} &> /dev/null
+
+for file in ${DIR}/../manifests/*.yml
+do
+    kubectl apply -f ${file}
+done
+
+for file in $(find ${DIR}/../manifests_helm/ -name '*.y*ml')
+do
+    echo kubectl -n {{i.target}} apply HELM -f ${file}
+done
 {% endif %}

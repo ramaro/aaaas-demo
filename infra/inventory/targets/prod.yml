@@ -1,0 +1,11 @@
+classes:
+  - init
+  - component.redis
+  - component.dbrpc
+  - component.api
+  - component.scripts
+  - platform.kubernetes
+
+parameters:
+  target: prod
+

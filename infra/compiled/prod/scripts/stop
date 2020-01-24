@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+
+DIR=$(dirname ${BASH_SOURCE[0]})
+
+
+gcloud container clusters get-credentials ramaro-dev --zone europe-west2-c --project ramaro-dev &> /dev/null
+
+for file in ${DIR}/../manifests/*deployment.yml
+do
+    kubectl -n prod scale --replicas=0 -f ${file}
+done
+# TODO scale down helm (ss/deplomenty?)

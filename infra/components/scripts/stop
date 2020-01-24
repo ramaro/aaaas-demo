@@ -15,3 +15,13 @@ done
 
 docker-compose ${COMPOSE_ARGS} down
 {% endif %}
+
+{% if platform == "kubernetes" %}
+gcloud container clusters get-credentials {{i.kubernetes.cluster}} --zone {{i.kubernetes.zone}} --project {{i.kubernetes.project}} &> /dev/null
+
+for file in ${DIR}/../manifests/*deployment.yml
+do
+    kubectl -n {{i.target}} scale --replicas=0 -f ${file}
+done
+# TODO scale down helm (ss/deplomenty?)
+{% endif %}

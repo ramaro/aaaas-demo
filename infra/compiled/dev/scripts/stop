@@ -11,3 +11,4 @@ do
 done
 
 docker-compose ${COMPOSE_ARGS} down
+

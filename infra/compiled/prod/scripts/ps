@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+DIR=$(dirname ${BASH_SOURCE[0]})
+
+
+gcloud container clusters get-credentials ramaro-dev --zone europe-west2-c --project ramaro-dev &> /dev/null
+
+kubectl -n prod get pods

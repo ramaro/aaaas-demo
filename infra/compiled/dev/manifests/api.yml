@@ -12,7 +12,7 @@ services:
       - --dbrpc-secret
       - I_am_an_unsafe_secret
       - --style-title
-    image: gcr.io/ramaro-net/aaaas-api:0.1
+    image: gcr.io/ramaro-dev/aaaas-api:0.1
     ports:
       - 8080:8080
 version: '3'

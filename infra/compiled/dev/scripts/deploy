@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 COMPOSE_ARGS=""
@@ -11,3 +10,4 @@ do
 done
 
 docker-compose ${COMPOSE_ARGS} up -d
+

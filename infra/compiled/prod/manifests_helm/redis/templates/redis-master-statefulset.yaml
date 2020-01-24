@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: redis
+    chart: redis-10.3.4
+    heritage: Tiller
+    release: prod
+  name: prod-redis-master
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      release: prod
+      role: master
+  serviceName: prod-redis-headless
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: d325a4466d4b171d9be9aaba96d7db1fae2f25050ca5cca45e77a65121349418
+        checksum/health: b5a40d61b9ce050d8dfbe3ca3b07a0ca12f53332875563c1244668b2f060c1d7
+        checksum/secret: d6db284ae49623605dcf715410ed4a273906ecd1031febcecd5468224561e197
+      labels:
+        app: redis
+        chart: redis-10.3.4
+        release: prod
+        role: master
+    spec:
+      containers:
+        - command:
+            - /bin/bash
+            - -c
+            - "if [[ -n $REDIS_PASSWORD_FILE ]]; then\n  password_aux=`cat ${REDIS_PASSWORD_FILE}`\n\
+              \  export REDIS_PASSWORD=$password_aux\nfi\nif [[ ! -f /opt/bitnami/redis/etc/master.conf\
+              \ ]];then\n  cp /opt/bitnami/redis/mounted-etc/master.conf /opt/bitnami/redis/etc/master.conf\n\
+              fi\nif [[ ! -f /opt/bitnami/redis/etc/redis.conf ]];then\n  cp /opt/bitnami/redis/mounted-etc/redis.conf\
+              \ /opt/bitnami/redis/etc/redis.conf\nfi\nARGS=(\"--port\" \"${REDIS_PORT}\"\
+              )\nARGS+=(\"--requirepass\" \"${REDIS_PASSWORD}\")\nARGS+=(\"--masterauth\"\
+              \ \"${REDIS_PASSWORD}\")\nARGS+=(\"--include\" \"/opt/bitnami/redis/etc/redis.conf\"\
+              )\nARGS+=(\"--include\" \"/opt/bitnami/redis/etc/master.conf\")\n/run.sh\
+              \ ${ARGS[@]}\n"
+          env:
+            - name: REDIS_REPLICATION_MODE
+              value: master
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: redis-password
+                  name: prod-redis
+            - name: REDIS_PORT
+              value: '6379'
+          image: docker.io/bitnami/redis:5.0.7-debian-9-r50
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_liveness_local.sh 5
+            failureThreshold: 5
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: prod-redis
+          ports:
+            - containerPort: 6379
+              name: redis
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_readiness_local.sh 5
+            failureThreshold: 5
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: null
+          securityContext:
+            runAsUser: 1001
+          volumeMounts:
+            - mountPath: /health
+              name: health
+            - mountPath: /data
+              name: redis-data
+              subPath: null
+            - mountPath: /opt/bitnami/redis/mounted-etc
+              name: config
+            - mountPath: /opt/bitnami/redis/etc/
+              name: redis-tmp-conf
+      securityContext:
+        fsGroup: 1001
+      serviceAccountName: default
+      volumes:
+        - configMap:
+            defaultMode: 493
+            name: prod-redis-health
+          name: health
+        - configMap:
+            name: prod-redis
+          name: config
+        - emptyDir: {}
+          name: redis-tmp-conf
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - metadata:
+        labels:
+          app: redis
+          component: master
+          heritage: Tiller
+          release: prod
+        name: redis-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 8Gi

@@ -1,2 +1,15 @@
 parameters:
   platform: kubernetes
+  kubernetes:
+    project: ramaro-dev
+    zone: europe-west2-c
+    cluster: ramaro-dev
+
+  # always create namespace per target
+  kapitan:
+    compile:
+      - output_path: manifests
+        input_type: jsonnet
+        input_paths:
+          - components/namespace/main.jsonnet
+        output_type: yaml
