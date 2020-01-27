@@ -57,11 +57,12 @@ local main_kubernetes = if params.platform == "kubernetes" then {
               {
                 name: "http",
                 port: 8080,
+                nodePort: 30080,
                 targetPort: params.api.bind_port
               },
           ],
           selector: { app: "api" },
-          type: "NodePort", // TODO hardcode nodeport and open firewall!!!
+          type: "NodePort",
       },
 
       metadata: {

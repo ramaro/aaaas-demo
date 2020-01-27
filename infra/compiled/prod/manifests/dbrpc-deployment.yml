@@ -20,7 +20,7 @@ spec:
             - --bind-port
             - '8079'
             - --db-host
-            - redis
+            - prod-redis-master
             - --db-port
             - '6379'
             - --secret

@@ -1,0 +1,5 @@
+parameters:
+  dbrpc:
+    _db_host:
+      kubernetes: ${target}-redis-master
+      compose: redis

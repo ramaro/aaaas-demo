@@ -1,3 +1,6 @@
+classes:
+  - component.redis._helm
+
 parameters:
   redis:
     image: redis:5.0.7
@@ -8,26 +11,6 @@ parameters:
       - ${redis:bind_port}
 
     _compile:
-      kubernetes:
-        - output_path: manifests_helm
-          input_type: helm
-          input_paths:
-            - components/redis/chart
-          helm_params:
-            release_name: ${target}
-            namespace: ${target}
-          helm_values:
-            redisPort: ${redis:bind_port}
-            usePassword: false
-            cluster:
-              enabled: false
-            master:
-              persistence:
-                enabled: false
-              livenessPRobe:
-                enabled: false
-              readinessProbe:
-                enbabled: false
       compose:
         - output_path: manifests
           input_type: jsonnet
@@ -36,12 +19,6 @@ parameters:
           output_type: yaml
 
     _dependencies:
-      kubernetes:
-        - type: git
-          output_path: components/redis/chart
-          source: git@github.com:helm/charts.git
-          subdir: stable/redis
-          ref: 69ef199
       compose: []
 
   kapitan:
