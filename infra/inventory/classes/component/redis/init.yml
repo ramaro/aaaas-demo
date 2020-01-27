@@ -1,5 +1,5 @@
 classes:
-  - component.redis._helm
+  - component.redis.helm
 
 parameters:
   redis:
