@@ -4,6 +4,7 @@ classes:
   - component.dbrpc
   - component.api
   - component.scripts
+  - component.docs
 
 parameters:
   target: dev
