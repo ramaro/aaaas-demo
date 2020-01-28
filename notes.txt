@@ -1,5 +1,0 @@
-gcloud builds submit --tag gcr.io/ramaro-net/inlets:2.6.3
-gcloud run deploy inlets-server --image gcr.io/ramaro-net/inlets:2.6.3  \
-    --platform managed --region europe-west1 --allow-unauthenticated \ 
-    --command inlets --args 'server,-p,8080'
-gcloud run services delete inlets-server --platform managed --region europe-west1
