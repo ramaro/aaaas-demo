@@ -40,15 +40,15 @@ class AAaasServer(BaseHTTPRequestHandler):
         self.respond(data)
 
     def respond(self, data):
-        content = self.handle_http(200, 'text/html', data)
+        content = self.handle_http(200, 'text/plain', data)
         self.wfile.write(content)
 
     def respond_500(self,error_msg):
-        content = self.handle_http(500, 'text/html', error_msg)
+        content = self.handle_http(500, 'text/plain', error_msg)
         self.wfile.write(content)
 
     def respond_404(self,error_msg):
-        content = self.handle_http(404, 'text/html', error_msg)
+        content = self.handle_http(404, 'text/plain', error_msg)
         self.wfile.write(content)
 
     def handle_http(self, status, content_type, data):

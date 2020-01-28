@@ -27,6 +27,7 @@ spec:
             - I_am_an_unsafe_secret
             - --style-title
           image: gcr.io/ramaro-dev/aaaas-api:0.1
+          imagePullPolicy: Always
           name: api
           ports:
             - containerPort: 8080
