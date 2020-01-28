@@ -19,7 +19,6 @@ parameters:
       - ${api:dbrpc_port}
       - --dbrpc-secret
       - ${api:dbrpc_secret}
-      - --style-title
 
   kapitan:
     compile:

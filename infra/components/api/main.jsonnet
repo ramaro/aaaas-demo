@@ -22,7 +22,7 @@ local main_kubernetes = if params.platform == "kubernetes" then {
       name: "api",
       image: params.api.image,
       ports: [{containerPort: params.api.bind_port}],
-      args: ["%s" % arg for arg in params.api.args ], // TODO remove and hardcode args/styles for demo
+      args: ["%s" % arg for arg in params.api.args ],
       imagePullPolicy: "Always",
     },
   ],
