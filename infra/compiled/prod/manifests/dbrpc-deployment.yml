@@ -26,6 +26,7 @@ spec:
             - --secret
             - I_am_an_unsafe_secret
           image: gcr.io/ramaro-dev/aaaas-dbrpc:0.1
+          imagePullPolicy: Always
           name: dbrpc
           ports:
             - containerPort: 8079

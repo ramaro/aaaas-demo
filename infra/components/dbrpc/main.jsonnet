@@ -25,6 +25,7 @@ then {
       image: params.dbrpc.image,
       ports: [{containerPort: params.dbrpc.bind_port}],
       args: ["%s" % arg for arg in params.dbrpc.args ], // TODO remove and hardcode args/styles for demo
+      imagePullPolicy: "Always",
     },
   ],
 
