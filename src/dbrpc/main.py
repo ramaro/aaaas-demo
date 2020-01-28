@@ -11,14 +11,17 @@ def db_set(client, key, value):
     return client.set(key, value)
 
 def handler(client, msg):
-    if 'get' in msg:
-        key = msg['get']['key']
-        return db_get(client, key)
+    try:
+        if 'get' in msg:
+            key = msg['get']['key']
+            return db_get(client, key)
 
-    if 'set' in msg:
-        key = msg['set']['key']
-        value = msg['set']['value']
-        return db_set(client, key, value)
+        if 'set' in msg:
+            key = msg['set']['key']
+            value = msg['set']['value']
+            return db_set(client, key, value)
+    except:
+        raise
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Database RPC adapter')
