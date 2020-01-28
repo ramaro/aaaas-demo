@@ -5,6 +5,3 @@ classes:
   - component.api
   - component.scripts
   - platform.kubernetes
-
-parameters:
-  target: prod

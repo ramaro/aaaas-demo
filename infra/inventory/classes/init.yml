@@ -1,6 +1,7 @@
 classes:
   - platform.compose
 parameters:
+  target: ${_reclass_:name:short}
   kapitan:
     vars:
       target: ${target}
