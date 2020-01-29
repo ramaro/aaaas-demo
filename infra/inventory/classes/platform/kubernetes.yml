@@ -5,9 +5,13 @@ parameters:
     zone: europe-west2-c
     cluster: ramaro-dev
 
-  # always create namespace per target
   kapitan:
+    #default KMS key for kubernetes targets
+    secrets:
+      gkms:
+        key: projects/ramaro-dev/locations/europe-west2/keyRings/demo/cryptoKeys/kapitan
     compile:
+    # always create namespace per target
       - output_path: manifests
         input_type: jsonnet
         input_paths:
