@@ -1,7 +1,0 @@
-classes:
-  - init
-  - component.api
-  - component.dbrpc
-  - component.redis
-  - component.scripts
-  - component.docs

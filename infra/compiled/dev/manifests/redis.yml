@@ -1,9 +1,0 @@
-services:
-  redis:
-    command:
-      - --port
-      - '6379'
-    image: redis:5.0.7
-    ports:
-      - 6379:6379
-version: '3'
