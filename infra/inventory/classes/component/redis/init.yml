@@ -10,17 +10,18 @@ parameters:
       - --port
       - ${redis:bind_port}
 
-    _compile:
-      compose:
-        - output_path: manifests
-          input_type: jsonnet
-          input_paths:
-            - components/redis/main.jsonnet
-          output_type: yaml
-
-    _dependencies:
-      compose: []
-
   kapitan:
-    compile: ${redis:_compile:${platform}}
-    dependencies: ${redis:_dependencies:${platform}}
+    redis:
+      _compile:
+        compose:
+          - output_path: manifests
+            input_type: jsonnet
+            input_paths:
+              - components/redis/main.jsonnet
+            output_type: yaml
+
+      _dependencies:
+        compose: []
+
+    compile: ${kapitan:redis:_compile:${platform}}
+    dependencies: ${kapitan:redis:_dependencies:${platform}}
