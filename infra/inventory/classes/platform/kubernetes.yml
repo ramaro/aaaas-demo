@@ -3,7 +3,7 @@ classes:
 
 parameters:
   platform: kubernetes
-  url: https://demo.ramaro.dev/
+  url: https://demo.ramaro.dev
   kubernetes:
     project: ramaro-dev
     zone: europe-west2-c

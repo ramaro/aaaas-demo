@@ -42,5 +42,5 @@ $ ./compiled/{{i.target}}/scripts/stop
 Run:
 
 ```shell
-$ ./compiled/{{i.target}}/scripts/ps --help
+$ ./compiled/{{i.target}}/scripts/ctl --help
 ```
