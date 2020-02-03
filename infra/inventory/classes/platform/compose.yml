@@ -1,2 +1,3 @@
 parameters:
   platform: compose
+  url: http://localhost:8080

@@ -25,6 +25,10 @@ To list processes , run:
 $ ./compiled/{{i.target}}/scripts/ps
 ```
 
+## Connecting to the API
+```shell
+$ curl {{i.url}}/hello -XPOST -d 'Hello there!'
+```
 
 ## Stopping it
 
