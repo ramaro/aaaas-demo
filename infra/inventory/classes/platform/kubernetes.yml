@@ -1,3 +1,6 @@
+classes:
+  - service.gkms #default KMS key for kubernetes targets
+
 parameters:
   platform: kubernetes
   url: https://demo.ramaro.dev/
@@ -7,10 +10,6 @@ parameters:
     cluster: ramaro-dev
 
   kapitan:
-    #default KMS key for kubernetes targets
-    secrets:
-      gkms:
-        key: projects/ramaro-dev/locations/europe-west2/keyRings/demo/cryptoKeys/kapitan
     compile:
     # always create namespace per target
       - output_path: manifests

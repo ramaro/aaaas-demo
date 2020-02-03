@@ -1,0 +1,6 @@
+parameters:
+  kapitan:
+    secrets:
+      gkms:
+        key: projects/ramaro-dev/locations/europe-west2/keyRings/demo/cryptoKeys/kapitan
+
